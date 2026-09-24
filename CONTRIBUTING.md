@@ -23,7 +23,7 @@ is to keep it that way: fast, obvious, cross-platform, and safe to run in CI.
 ## Getting started
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/linkcheck-md.git
+git clone https://github.com/rishbCLN/linkcheck-md.git
 cd linkcheck-md
 node --test                       # run the suite
 node bin/linkcheck.mjs --help     # try it

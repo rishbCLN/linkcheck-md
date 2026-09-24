@@ -1,6 +1,6 @@
 # linkcheck
 
-[![CI](https://github.com/YOUR_USERNAME/linkcheck-md/actions/workflows/ci.yml/badge.svg)](https://github.com/YOUR_USERNAME/linkcheck-md/actions/workflows/ci.yml)
+[![CI](https://github.com/rishbCLN/linkcheck-md/actions/workflows/ci.yml/badge.svg)](https://github.com/rishbCLN/linkcheck-md/actions/workflows/ci.yml)
 [![npm](https://img.shields.io/npm/v/linkcheck-md.svg)](https://www.npmjs.com/package/linkcheck-md)
 [![license: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 

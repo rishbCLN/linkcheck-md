@@ -9,7 +9,7 @@ import { extractLinks, extractHeadings, extractHtmlAnchors } from './extract.mjs
 import { slugifyHeadings } from './slug.mjs';
 import { classifyLink } from './classify.mjs';
 
-export const USER_AGENT = 'linkcheck-md (+https://github.com/YOUR_USERNAME/linkcheck-md)';
+export const USER_AGENT = 'linkcheck-md (+https://github.com/rishbCLN/linkcheck-md)';
 
 /** Minimal fs surface the checker needs — swapped out wholesale in tests. */
 export const defaultFs = {
