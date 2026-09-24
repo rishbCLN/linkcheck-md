@@ -1,0 +1,44 @@
+{
+  "name": "linkcheck-md",
+  "version": "0.1.0",
+  "description": "Find dead links in your Markdown and docs — local files, anchors, and external URLs — locally and in CI. Zero dependencies.",
+  "type": "module",
+  "bin": {
+    "linkcheck": "bin/linkcheck.mjs",
+    "linkcheck-md": "bin/linkcheck.mjs"
+  },
+  "scripts": {
+    "test": "node --test",
+    "start": "node bin/linkcheck.mjs"
+  },
+  "keywords": [
+    "markdown",
+    "links",
+    "link-checker",
+    "dead-links",
+    "broken-links",
+    "docs",
+    "documentation",
+    "ci",
+    "cli",
+    "developer-tools",
+    "cross-platform",
+    "zero-dependency"
+  ],
+  "license": "MIT",
+  "engines": {
+    "node": ">=18"
+  },
+  "files": [
+    "bin",
+    "src"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/YOUR_USERNAME/linkcheck-md.git"
+  },
+  "bugs": {
+    "url": "https://github.com/YOUR_USERNAME/linkcheck-md/issues"
+  },
+  "homepage": "https://github.com/YOUR_USERNAME/linkcheck-md#readme"
+}
