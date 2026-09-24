@@ -80,6 +80,42 @@ test('extractLinks: undefined explicit reference is flagged, not silently droppe
   assert.equal(links[0].line, 1);
 });
 
+test('extractLinks: inline URL with balanced parentheses is captured whole', () => {
+  const md = 'See [wiki](https://en.wikipedia.org/wiki/Foo_(bar)) for details.';
+  const links = extractLinks(md);
+  assert.equal(links.length, 1);
+  assert.deepEqual(links[0], {
+    url: 'https://en.wikipedia.org/wiki/Foo_(bar)',
+    line: 1,
+    type: 'inline',
+  });
+});
+
+test('extractLinks: image URL with balanced parentheses is captured whole', () => {
+  const md = '![diagram](https://example.com/img_(v2).png)';
+  const links = extractLinks(md);
+  assert.equal(links.length, 1);
+  assert.deepEqual(links[0], {
+    url: 'https://example.com/img_(v2).png',
+    line: 1,
+    type: 'image',
+  });
+});
+
+test('extractLinks: link wrapped in prose parentheses keeps the prose paren out of the URL', () => {
+  const md = '(see [docs](https://example.com/docs))';
+  const links = extractLinks(md);
+  assert.equal(links.length, 1);
+  assert.equal(links[0].url, 'https://example.com/docs');
+});
+
+test('extractLinks: paren URL followed by a title strips the title but keeps the parens', () => {
+  const md = '[wiki](https://en.wikipedia.org/wiki/Foo_(bar) "A title")';
+  const links = extractLinks(md);
+  assert.equal(links.length, 1);
+  assert.equal(links[0].url, 'https://en.wikipedia.org/wiki/Foo_(bar)');
+});
+
 test('extractHeadings: reads ATX + Setext headings and skips fenced code', () => {
   const md = [
     '# Hello World',

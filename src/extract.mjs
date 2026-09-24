@@ -12,8 +12,14 @@ const INDENT_RE = /^( {4,}|\t)/;
 // A reference definition:  [id]: url "optional title"
 const DEF_RE = /^ {0,3}\[([^\]]+)\]:\s*(<[^>]+>|\S+)(?:\s+(?:"[^"]*"|'[^']*'|\([^)]*\)))?\s*$/;
 
-const INLINE_IMAGE_RE = /!\[([^\]]*)\]\(\s*(<[^>]*>|[^)\s]+)(?:\s+(?:"[^"]*"|'[^']*'|\([^)]*\)))?\s*\)/g;
-const INLINE_LINK_RE = /\[([^\]]*)\]\(\s*(<[^>]*>|[^)\s]+)(?:\s+(?:"[^"]*"|'[^']*'|\([^)]*\)))?\s*\)/g;
+// Inline link/image destinations. The destination is either an <angle-bracket>
+// form or a run of non-space characters; unescaped parentheses are allowed as long
+// as they are balanced one level deep, so a URL like
+// `https://en.wikipedia.org/wiki/Foo_(bar)` is captured whole instead of being cut
+// off at the first ")". The `[^()\s]` atom is single-char (not `+`), which keeps the
+// destination free of catastrophic backtracking.
+const INLINE_IMAGE_RE = /!\[([^\]]*)\]\(\s*(<[^>]*>|(?:[^()\s]|\([^()\s]*\))+)(?:\s+(?:"[^"]*"|'[^']*'|\([^)]*\)))?\s*\)/g;
+const INLINE_LINK_RE = /\[([^\]]*)\]\(\s*(<[^>]*>|(?:[^()\s]|\([^()\s]*\))+)(?:\s+(?:"[^"]*"|'[^']*'|\([^)]*\)))?\s*\)/g;
 const REF_IMAGE_RE = /!\[([^\]]*)\]\[([^\]]*)\]/g;
 const REF_LINK_RE = /\[([^\]]+)\]\[([^\]]*)\]/g;
 const AUTOLINK_RE = /<((?:[a-zA-Z][a-zA-Z0-9+.-]*):[^>\s]+)>/g;
