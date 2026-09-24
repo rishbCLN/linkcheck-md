@@ -1,8 +1,9 @@
 // Pure GitHub-style heading -> anchor slug conversion.
 //
 // GitHub builds an anchor for every heading: lowercase the text, drop anything
-// that isn't a letter, number, space, hyphen or underscore, then turn runs of
-// whitespace into single hyphens. Duplicate headings get a `-1`, `-2`, ... suffix
+// that isn't a letter, number, space, hyphen or underscore, then turn each space
+// into a hyphen (consecutive spaces become consecutive hyphens, exactly like
+// GitHub). Duplicate headings get a `-1`, `-2`, ... suffix
 // in document order. All of this is deterministic and side-effect free, so it is
 // trivially unit-testable.
 
@@ -18,8 +19,9 @@ export function slugify(heading) {
     .toLowerCase()
     // strip punctuation/symbols but keep letters, numbers, spaces, hyphen, underscore
     .replace(/[^\p{L}\p{N}\s_-]+/gu, '')
-    // collapse whitespace runs into single hyphens
-    .replace(/\s+/g, '-');
+    // turn each whitespace character into a hyphen — GitHub does NOT collapse
+    // runs, so "a & b" -> "a--b" (the removed "&" leaves two spaces -> two hyphens)
+    .replace(/\s/g, '-');
 }
 
 /**

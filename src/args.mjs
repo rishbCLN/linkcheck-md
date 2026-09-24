@@ -77,7 +77,10 @@ export function parseArgs(argv) {
     }
     const takeValue = (name) => {
       if (inlineVal != null) return inlineVal;
-      if (i + 1 < argv.length) return argv[++i];
+      const next = argv[i + 1];
+      // Never swallow the following token when it looks like another flag
+      // (starts with '-'); a lone '-' remains a usable value (e.g. stdin).
+      if (next != null && !(next.startsWith('-') && next !== '-')) return argv[++i];
       result.errors.push(`option ${name} requires a value`);
       return null;
     };

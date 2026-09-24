@@ -71,6 +71,17 @@ test('parseArgs: a value-taking option at the end reports a missing value', () =
   assert.ok(r.errors.some((e) => /requires a value/.test(e)));
 });
 
+test('parseArgs: a value option does not swallow a following flag (regression)', () => {
+  // A forgotten value must not eat the next flag; it must error instead.
+  const r = parseArgs(['--ignore', '--no-external']);
+  assert.equal(r.external, false); // --no-external was NOT consumed as the value
+  assert.deepEqual(r.ignore, []); // and nothing was captured into --ignore
+  assert.ok(r.errors.some((e) => /option --ignore requires a value/.test(e)));
+  // Normal space and inline forms still parse.
+  assert.deepEqual(parseArgs(['--ignore', 'vendor/**']).ignore, ['vendor/**']);
+  assert.deepEqual(parseArgs(['--ignore=vendor/**']).ignore, ['vendor/**']);
+});
+
 test('parseArgs: --retry 0 is allowed', () => {
   const r = parseArgs(['--retry', '0']);
   assert.equal(r.retry, 0);
